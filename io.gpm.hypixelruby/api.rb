@@ -37,7 +37,37 @@ class API
   end
 
   def guildByUsername(username)
+    @logger.info "Looking for guild from username [#{username}]"
+    request = handleRequest('guild', {
+        :username => username
+    })
 
+    Guild.from_json request
+  end
+
+  def guildByName(name)
+    @logger.info "Looking for guild from name [#{name}]"
+    request = handleRequest('guild', {
+        :name => name
+    })
+
+    Guild.from_json request
+  end
+
+  def playerByUsername(username)
+    @logger.info "Looking up player by username [#{username}]"
+    request = make_request('player', {
+        :name => username
+    })
+    Player.from_json request
+  end
+
+  def playerByUniqueID(uuid)
+    @logger.info "Looking up player by UUID [#{uuid}]"
+    request = make_request('player', {
+        :uuid => uuid
+    })
+    Player.from_json request
   end
 
   def handleRequest(type, params)
