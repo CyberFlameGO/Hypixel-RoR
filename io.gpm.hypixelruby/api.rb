@@ -27,6 +27,19 @@ class API
     friends
   end
 
+  def guildById(id)
+    @logger.info "Looking for guild from ID [#{id}]"
+    request = handleRequest('guild', {
+        :id => id
+    })
+
+    Guild.from_json request
+  end
+
+  def guildByUsername(username)
+
+  end
+
   def handleRequest(type, params)
     params[:key] = apiKey
     uri = URI.parse "https://api.hypixel.net/#{type}"
